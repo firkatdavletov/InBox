@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    id("kotlin-parcelize")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -36,6 +36,8 @@ kotlin {
             implementation(projects.shared)
             implementation(libs.decompose)
             implementation(libs.decompose.extensions.compose)
+            implementation(libs.koin.core)
+            implementation(libs.koin.android)
         }
     }
 }

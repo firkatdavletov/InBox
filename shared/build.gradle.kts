@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -24,7 +25,6 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
-
             export(libs.decompose)
             export(libs.essenty.lifecycle)
         }
@@ -34,9 +34,18 @@ kotlin {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
             implementation(libs.decompose)
+            implementation(libs.essenty.lifecycle)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.core)
+        }
+
+        iosMain.dependencies {
+            api(libs.decompose)
+            api(libs.essenty.lifecycle)
         }
     }
 }
+
 
 android {
     namespace = "org.example.project.shared"
@@ -46,6 +55,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = 30
     }
 }
